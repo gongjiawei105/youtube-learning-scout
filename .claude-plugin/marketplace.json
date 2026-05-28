@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "youtube-learning-scout",
+  "version": "1.0.0",
+  "description": "Claude Code plugin marketplace for YouTube Learning Scout.",
+  "owner": {
+    "name": "Jiawei Gong"
+  },
+  "plugins": [
+    {
+      "name": "youtube-learning-scout",
+      "description": "Use a local CLI to rank YouTube videos by learning quality and inspect recommendation failures.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Jiawei Gong"
+      },
+      "source": "./plugins/youtube-learning-scout",
+      "category": "learning"
+    }
+  ]
+}

@@ -54,13 +54,28 @@ The command prints the top 5 ranked videos and saves a Markdown report to `outpu
 
 ## Install as a Claude Code Skill
 
-This repo includes a portable Claude Code skill wrapper at:
+Easiest Claude Code install:
+
+```text
+/plugin marketplace add gongjiawei105/youtube-learning-scout
+/plugin install youtube-learning-scout@youtube-learning-scout
+```
+
+Restart Claude Code, then ask:
+
+```text
+Use YouTube Learning Scout to find beginner videos for Claude Code skills.
+```
+
+The plugin gives Claude Code the skill instructions. If the local CLI is missing, Claude Code will guide the user through installing it with `pipx`.
+
+This repo also includes a portable standalone skill wrapper at:
 
 ```text
 skills/youtube-learning-scout/SKILL.md
 ```
 
-Install it into your personal Claude Code skills folder.
+Manual skill install is still possible.
 
 macOS/Linux:
 
@@ -74,12 +89,6 @@ Windows PowerShell:
 ```powershell
 New-Item -ItemType Directory -Force $env:USERPROFILE\.claude\skills
 Copy-Item -Recurse skills\youtube-learning-scout $env:USERPROFILE\.claude\skills\
-```
-
-Restart Claude Code, then ask:
-
-```text
-Use YouTube Learning Scout to find beginner videos for Claude Code skills.
 ```
 
 Claude should run the local CLI, inspect the generated Markdown report, and help update `evaluation_notes.md` when rankings look wrong.
@@ -246,6 +255,15 @@ youtube-learning-scout/
 |-- skills/
 |   `-- youtube-learning-scout/
 |       `-- SKILL.md
+|-- plugins/
+|   `-- youtube-learning-scout/
+|       |-- .claude-plugin/
+|       |   `-- plugin.json
+|       `-- skills/
+|           `-- youtube-learning-scout/
+|               `-- SKILL.md
+|-- .claude-plugin/
+|   `-- marketplace.json
 |-- prompts/
 |   `-- ranking_prompt.md
 |-- evaluation_notes.example.md

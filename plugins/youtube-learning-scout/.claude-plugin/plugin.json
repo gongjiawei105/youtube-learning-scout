@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin.json",
+  "name": "youtube-learning-scout",
+  "description": "Wraps the YouTube Learning Scout CLI for evaluating YouTube videos as technical learning resources.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Jiawei Gong"
+  },
+  "homepage": "https://github.com/gongjiawei105/youtube-learning-scout",
+  "repository": "https://github.com/gongjiawei105/youtube-learning-scout",
+  "license": "MIT"
+}
