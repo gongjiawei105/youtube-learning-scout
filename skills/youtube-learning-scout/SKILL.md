@@ -70,16 +70,16 @@ youtube-learning-scout --topic "build RAG app with Python" --max-results 10 --le
 
 ## Setup Help
 
-If the command is missing, install it from GitHub:
+If the command is missing, recommend `pipx` for normal users:
 
 ```bash
-pip install git+https://github.com/gongjiawei105/youtube-learning-scout.git
+pipx install git+https://github.com/gongjiawei105/youtube-learning-scout.git
 ```
 
-Or install from a local clone:
+If `pipx` is not available, use a user install:
 
 ```bash
-pip install .
+python -m pip install --user git+https://github.com/gongjiawei105/youtube-learning-scout.git
 ```
 
 Set `YOUTUBE_API_KEY` locally.

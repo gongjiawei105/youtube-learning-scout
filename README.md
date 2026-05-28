@@ -6,10 +6,28 @@ This is not a general recommendation engine. It is an AI-assisted learning quali
 
 ## Quick Start
 
-Install from GitHub:
+Recommended user install with `pipx`:
+
+macOS/Linux:
 
 ```bash
-pip install git+https://github.com/gongjiawei105/youtube-learning-scout.git
+python3 -m pip install --user pipx
+python3 -m pipx ensurepath
+pipx install git+https://github.com/gongjiawei105/youtube-learning-scout.git
+```
+
+Windows PowerShell:
+
+```powershell
+py -m pip install --user pipx
+py -m pipx ensurepath
+pipx install git+https://github.com/gongjiawei105/youtube-learning-scout.git
+```
+
+If you do not want to use `pipx`, install for your current user:
+
+```bash
+python -m pip install --user git+https://github.com/gongjiawei105/youtube-learning-scout.git
 ```
 
 Set your YouTube Data API key.
