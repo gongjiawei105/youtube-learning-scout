@@ -1,0 +1,2 @@
+"""YouTube Learning Scout package."""
+

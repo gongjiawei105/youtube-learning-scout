@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "youtube-learning-scout"
+version = "0.1.0"
+description = "A small CLI for ranking YouTube videos by learning quality."
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+    { name = "Jiawei Gong" },
+]
+license = { text = "MIT" }
+dependencies = [
+    "google-api-python-client==2.137.0",
+    "openai==1.93.0",
+    "youtube-transcript-api==0.6.2",
+]
+
+[project.urls]
+Homepage = "https://github.com/gongjiawei105/youtube-learning-scout"
+Repository = "https://github.com/gongjiawei105/youtube-learning-scout"
+Issues = "https://github.com/gongjiawei105/youtube-learning-scout/issues"
+
+[project.scripts]
+youtube-learning-scout = "youtube_learning_scout.main:main"
+
+[tool.setuptools]
+packages = ["youtube_learning_scout"]
