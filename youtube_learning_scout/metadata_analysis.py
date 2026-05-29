@@ -195,7 +195,7 @@ def score_breakdown(video: dict, level: str) -> dict:
 
 
 def metadata_score(video: dict, level: str) -> float:
-    """A simple non-LLM prior. The LLM can override it with better reasoning."""
+    """A simple deterministic prior. The reading agent can override it with better reasoning."""
     return score_breakdown(video, level)["overall"]
 
 
@@ -215,5 +215,6 @@ def enrich_videos(videos: list[dict], level: str = "beginner", topic: str = "") 
         enriched_video["score_breakdown"] = score_breakdown(enriched_video, level)
         enriched_video["metadata_score"] = metadata_score(enriched_video, level)
         enriched.append(enriched_video)
+
 
     return enriched

@@ -2,7 +2,7 @@
 
 A small Python CLI that searches YouTube for technical learning topics and ranks videos by learning quality.
 
-This is not a general recommendation engine. It is an AI-assisted learning quality evaluator with an explicit human review loop.
+This is not a general recommendation engine. The CLI gathers signals and ranks deterministically from metadata (no AI API calls, no keys beyond the YouTube Data API). The qualitative judgment is done by the agent reading the report — Claude Code, Codex, or you — with an explicit human review loop.
 
 ## Quick Start
 
@@ -99,10 +99,10 @@ Claude should run the local CLI, inspect the generated Markdown report, and help
 - Retrieves video metadata
 - Attempts to collect transcripts
 - Attempts to collect top comments
-- Scores practical usefulness, beginner friendliness, freshness, implementation depth, hype penalty, comment signal, and credibility
+- Scores practical usefulness, beginner friendliness, freshness, implementation depth, hype penalty, comment signal, and credibility — all deterministically, with no AI API calls
 - Supports `--official-first` to prefer official/high-credibility sources when available
 - Prints the top 5 ranked videos in the terminal
-- Saves a Markdown report to `outputs/`
+- Saves a Markdown report to `outputs/`, including raw signals (transcript excerpt + top comments) so the reading agent can form its own qualitative ranking
 
 ## Local Development
 
@@ -121,18 +121,11 @@ python -m venv .venv
 pip install -e .
 ```
 
-Optional LLM ranking:
-
-```bash
-export OPENAI_API_KEY="your-openai-api-key"
-```
-
-If `OPENAI_API_KEY` is not set, the tool still runs using metadata-only fallback ranking. This is the recommended MVP workflow when you plan to inspect reports with Codex or Claude Code.
+No AI API key is required. The CLI ranks deterministically from metadata and writes a report with raw signals (transcript excerpt, top comments, score breakdown). The qualitative ranking is meant to be done by the agent reading the report (Claude Code, Codex, etc.), which keeps the engine free, reproducible, and offline-friendly.
 
 Optional settings:
 
 ```bash
-export OPENAI_MODEL="gpt-4.1-mini"
 export YLS_INCLUDE_COMMENTS="true"
 export YLS_INCLUDE_TRANSCRIPTS="true"
 ```

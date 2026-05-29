@@ -7,7 +7,7 @@ description: Evaluate YouTube videos as learning resources for technical topics 
 
 ## Overview
 
-Use the local `youtube-learning-scout` command to search YouTube, rank videos by learning quality, and produce a Markdown report. Treat this as an evaluation workflow, not a general recommendation engine.
+Use the local `youtube-learning-scout` command to search YouTube and produce a Markdown report of candidate videos with deterministic metadata scores and raw signals. The CLI does no AI inference and needs no AI API key — you (the agent) do the qualitative ranking by reading the report. Treat this as an evaluation workflow, not a general recommendation engine.
 
 Use the repository directory where the user cloned `youtube-learning-scout` when you need to inspect source files, copy the skill, or update `evaluation_notes.md`.
 
@@ -26,7 +26,7 @@ Use the repository directory where the user cloned `youtube-learning-scout` when
 youtube-learning-scout --topic "Claude Code skills" --max-results 10 --level beginner --official-first
 ```
 
-4. Read the generated Markdown report from the `outputs/` folder relative to the current working directory.
+4. Read the generated Markdown report from the `outputs/` folder relative to the current working directory. For each video, read the **Raw Signals** (transcript excerpt + top comments), not just the heuristic score. Form your own ranking from that evidence and re-order the list when it disagrees with the engine's score.
 
 5. Summarize the top recommendations with:
    - top result and why it ranked
@@ -66,40 +66,11 @@ youtube-learning-scout --topic "build RAG app with Python" --max-results 10 --le
 - Treat comments as weak evidence; comments can be noisy or unavailable.
 - Use `--official-first` as a heuristic, not proof of quality.
 - Prefer recording repeated failure modes over making one-off scoring changes.
-- If `OPENAI_API_KEY` is missing, that is fine. The CLI uses metadata-only fallback ranking; Codex/Claude can still inspect the report.
+- The CLI does no AI inference. Its score is a deterministic metadata prior, not a verdict. Do the qualitative ranking yourself from the report's **Raw Signals** (transcript excerpt + top comments), and re-order the engine's list when the evidence warrants it.
 
 ## Setup Help
 
 If the command is missing, recommend `pipx` for normal users:
 
 ```bash
-pipx install git+https://github.com/gongjiawei105/youtube-learning-scout.git
-```
-
-If `pipx` is not available, use a user install:
-
-```bash
-python -m pip install --user git+https://github.com/gongjiawei105/youtube-learning-scout.git
-```
-
-Set `YOUTUBE_API_KEY` locally.
-
-macOS/Linux:
-
-```bash
-export YOUTUBE_API_KEY="your-youtube-api-key"
-```
-
-Windows PowerShell:
-
-```powershell
-$env:YOUTUBE_API_KEY="your-youtube-api-key"
-```
-
-Windows persistent:
-
-```powershell
-setx YOUTUBE_API_KEY "your-youtube-api-key"
-```
-
-Never write API keys into project files or skill files.
+pipx install git+https://github.com/gongjiawei105/youtube-learning-

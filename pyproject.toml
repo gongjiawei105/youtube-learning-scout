@@ -14,7 +14,6 @@ authors = [
 license = { text = "MIT" }
 dependencies = [
     "google-api-python-client==2.137.0",
-    "openai==1.93.0",
     "youtube-transcript-api==0.6.2",
 ]
 

@@ -4,8 +4,8 @@ import argparse
 from datetime import datetime, timezone
 from pathlib import Path
 
-from .llm_ranker import rank_videos
 from .metadata_analysis import enrich_videos
+from .ranking import rank_videos
 from .youtube_search import search_youtube
 
 
@@ -52,6 +52,33 @@ def format_credibility_notes(video: dict, indent: str = "   ") -> list[str]:
     notes = credibility.get("notes", [])
     lines = [f"{indent}- Credibility score: {score}/6"]
     lines.extend(f"{indent}- {note}" for note in notes[:4])
+    return lines
+
+
+def format_raw_signals(video: dict, transcript_chars: int = 800, max_comments: int = 5) -> list[str]:
+    """Raw, un-scored evidence the reading agent can use to form its own judgment."""
+    lines: list[str] = []
+
+    transcript = (video.get("transcript") or "").strip()
+    lines.append("**Transcript excerpt:**")
+    lines.append("")
+    if transcript:
+        excerpt = transcript[:transcript_chars].replace("\n", " ")
+        suffix = "..." if len(transcript) > transcript_chars else ""
+        lines.append(f"> {excerpt}{suffix}")
+    else:
+        lines.append("> Transcript unavailable.")
+    lines.append("")
+
+    comments = video.get("top_comments") or []
+    lines.append("**Top comments:**")
+    lines.append("")
+    if comments:
+        for comment in comments[:max_comments]:
+            lines.append(f"- {comment.replace(chr(10), ' ')}")
+    else:
+        lines.append("- No top comments available.")
+
     return lines
 
 
@@ -136,6 +163,10 @@ def format_markdown_report(
         f"- Generated: {generated_at}",
         f"- Videos ranked: {len(ranked_videos)}",
         "",
+        "> Scores below come from a deterministic metadata heuristic, not from AI.",
+        "> Use the **Raw Signals** (transcript excerpt + top comments) under each video to",
+        "> form your own qualitative ranking. Treat the heuristic score as a prior, not a verdict.",
+        "",
     ]
 
     for index, video in enumerate(ranked_videos, start=1):
@@ -169,6 +200,8 @@ def format_markdown_report(
         lines.extend(format_score_breakdown(video, indent=""))
         lines.extend(["", "### Credibility Notes", ""])
         lines.extend(format_credibility_notes(video, indent=""))
+        lines.extend(["", "### Raw Signals", ""])
+        lines.extend(format_raw_signals(video))
         lines.append("")
 
     return "\n".join(lines)
